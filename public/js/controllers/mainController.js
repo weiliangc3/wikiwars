@@ -39,5 +39,5 @@ function MainController($http, URL, $stateParams){
   }
   getPage();
   getPage();
-  // changePage($stateParams);
+  changePage($stateParams);
 }
