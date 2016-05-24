@@ -7,10 +7,16 @@ function MainController($http, URL, $stateParams){
   var self = this;
   self.changePage = changePage;
 
-  function changePage(){
+  function changePage(name){
+    if (name){
+      var Url = URL + name;
+    } else {
+      var Url = URL + $stateParams.name;
+    }
+
     $http({
       method: "GET",
-      url: URL + $stateParams.name
+      url: Url
     }).then(function(res){
       // self.page = res.data;
       $("#game-pane").html(res.data);
@@ -28,10 +34,13 @@ function MainController($http, URL, $stateParams){
       var result = regex.exec(res.data);
 
       if (!self.startPage) {
-        self.startPage = result[0].slice(53, result[0].length-5);
+        self.startPage     = result[0].slice(53, result[0].length-5);
+        self.startPageLink = self.startPage.replace(/ /g,"_");
       } else {
-        self.endPage = result[0].slice(53, result[0].length-5);
-        console.log("start:", self.startPage,"| end:", self.endPage);
+        self.endPage       = result[0].slice(53, result[0].length-5);
+        self.endPageLink   = self.endPage.replace(/ /g,"_");
+        
+        console.log("start:", self.startPageLink,"| end:", self.endPageLink);
       }
     }, function(res){
       console.log(res);
@@ -39,5 +48,5 @@ function MainController($http, URL, $stateParams){
   }
   getPage();
   getPage();
-  // changePage($stateParams);
+  changePage($stateParams.name);
 }
