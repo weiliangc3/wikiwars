@@ -17,6 +17,7 @@
   "dependencies": {
     "angular": "^1.5.5",
     "angular-resource": "^1.5.5",
-    "jQuery": "^2.2.4"
+    "jQuery": "^2.2.4",
+    "angular-ui-router": "ui-router#^0.3.0"
   }
 }

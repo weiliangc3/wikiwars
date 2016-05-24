@@ -2,21 +2,21 @@ angular
   .module("WikiWars")
   .controller("MainController", MainController);
 
-MainController.$inject = ["$http", "URL"];
-function MainController($http, URL){
+MainController.$inject = ["$http", "URL", "$stateParams"];
+function MainController($http, URL, $stateParams){
   var self = this;
   self.changePage = changePage;
 
-  function changePage(name){$http({
+  function changePage(name){
+    $http({
       method: "GET",
-      url: "https://en.wikipedia.org/wiki/" + name
+      url: URL + $stateParams.name
     }).then(function(res){
-      console.log(res.data);
       // self.page = res.data;
-      $("main").append(res.data);
+      $("#game-pane").html(res.data);
     }, function(res){
-      console.log(res);
+      console.log(URL + $stateParams);
     });
   }
-  changePage("Main_Page");
+  changePage($stateParams);
 }
