@@ -10,9 +10,9 @@ function MainController($http, URL){
 
   $http({
     method: "GET",
-    url: URL
+    url: "https://en.wikipedia.org"
   }).then(function(res){
-    console.log(res);
+    console.log(res.data);
     // self.page = res;
   }, function(res){
     console.log(res);
