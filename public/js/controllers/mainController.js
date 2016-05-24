@@ -13,7 +13,8 @@ function MainController($http, URL){
     url: "https://en.wikipedia.org"
   }).then(function(res){
     console.log(res.data);
-    // self.page = res;
+    // self.page = res.data;
+    $("main").append(res.data);
   }, function(res){
     console.log(res);
   });
