@@ -30,5 +30,5 @@ app.get("/*",function (req,res){
 });
 
 app.listen(config.port,function(){
-  console.log("Welcome to the PWer Fight Club", config.port);
+  console.log("Welcome to the PWR Fight Club", config.port);
 });
