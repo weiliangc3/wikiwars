@@ -1,0 +1,9 @@
+http://stackoverflow.com/questions/251420/invoking-javascript-code-in-an-iframe-from-the-parent-page
+
+
+Assume your iFrame's id is "targetFrame" and the function you want to call is targetFunction():
+
+document.getElementById('targetFrame').contentWindow.targetFunction();
+
+
+document.getElementById('gameFrame').contentWindow.$("h1").html();
