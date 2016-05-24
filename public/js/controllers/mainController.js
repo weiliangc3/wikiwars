@@ -19,12 +19,12 @@ function MainController($http, URL, $stateParams, $scope){
       method: "GET",
       url: Url
     }).then(function(res){
-      // self.page = res.data;
-      $("#game-pane").html(res.data);
-    }, function(res){
+      // self.page = res.data
       if($stateParams.name === $scope.$parent.endPageLink){
         alert("YOU WON");
       }
+      $("#game-pane").html(res.data);
+    }, function(res){
     });
   }
 
