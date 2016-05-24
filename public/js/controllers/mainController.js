@@ -1,6 +1,6 @@
 angular
-  .module("WikiWars")
-  .controller("MainController", MainController);
+.module("WikiWars")
+.controller("MainController", MainController);
 
 MainController.$inject = ["$http", "URL", "$stateParams", "$scope"];
 function MainController($http, URL, $stateParams, $scope){
@@ -19,8 +19,8 @@ function MainController($http, URL, $stateParams, $scope){
       method: "GET",
       url: Url
     }).then(function(res){
-      // self.page = res.data
-      if($stateParams.name === $scope.$parent.endPageLink){
+      console.log($scope.$parent)
+      if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
         alert("YOU WON");
       }
       $("#game-pane").html(res.data);
@@ -36,14 +36,21 @@ function MainController($http, URL, $stateParams, $scope){
       var regex = /(<h1\b([\s\S]+?)>([\s\S]+?)<\/h1>)/;
       var result = regex.exec(res.data);
 
-      if (!self.startPage) {
-        self.startPage     = result[0].slice(53, result[0].length-5);
-        self.startPageLink = self.startPage.replace(/ /g,"_");
+      var stubfinder = /You can help Wikipedia/;
+      var ifinder = /<i>/;
+      var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?]/;
+      if (stubfinder.exec(res.data) || ifinder.exec(result) || badcharfinder.exec(result)) {
+        alert("dontwant");
+        getPage();
       } else {
-        self.endPage       = result[0].slice(53, result[0].length-5);
-        self.endPageLink   = self.endPage.replace(/ /g,"_");
-
-        console.log("start:", self.startPageLink,"| end:", self.endPageLink);
+        if (!self.startPage) {
+          self.startPage     = result[0].slice(53, result[0].length-5);
+          self.startPageLink = self.startPage.replace(/ /g,"_");
+        } else {
+          self.endPage       = result[0].slice(53, result[0].length-5);
+          // self.endPageLink   = self.endPage.replace(/ /g,"_");
+          self.endPageLink   = "Sugababes";
+        }
       }
     }, function(res){
       console.log(res);
@@ -51,8 +58,14 @@ function MainController($http, URL, $stateParams, $scope){
   }
 
   function startGame(){
-    getPage();
-    getPage();
+    self.startPage = null;
+    self.endPage = null;
+    if (!$scope.$parent.Main){
+      getPage();
+      getPage();
+    } else {
+      console.log("start stopped")
+    }
   }
 
   startGame();
