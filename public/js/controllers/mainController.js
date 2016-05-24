@@ -2,10 +2,11 @@ angular
   .module("WikiWars")
   .controller("MainController", MainController);
 
-MainController.$inject = ["$http", "URL", "$stateParams"];
-function MainController($http, URL, $stateParams){
+MainController.$inject = ["$http", "URL", "$stateParams", "$scope"];
+function MainController($http, URL, $stateParams, $scope){
   var self = this;
   self.changePage = changePage;
+  self.startGame  = startGame;
 
   function changePage(){
     $http({
@@ -15,7 +16,9 @@ function MainController($http, URL, $stateParams){
       // self.page = res.data;
       $("#game-pane").html(res.data);
     }, function(res){
-      console.log(URL + $stateParams);
+      if($stateParams.name === $scope.$parent.endPageLink){
+        alert("YOU WON");
+      }
     });
   }
 
@@ -37,7 +40,15 @@ function MainController($http, URL, $stateParams){
       console.log(res);
     });
   }
+
+  function startGame(){
+    getPage();
+    getPage();
+    
+  }
   getPage();
   getPage();
-  // changePage($stateParams);
+
+
+  changePage($stateParams);
 }
