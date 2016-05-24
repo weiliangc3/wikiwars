@@ -21,10 +21,11 @@ function MainController($http, URL, $stateParams, $scope){
     }).then(function(res){
       // self.page = res.data;
       $("#game-pane").html(res.data);
-    }, function(res){
       if($stateParams.name === $scope.$parent.endPageLink){
         alert("YOU WON");
       }
+    }, function(res){
+      console.log(res);
     });
   }
 
