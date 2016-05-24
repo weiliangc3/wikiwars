@@ -16,7 +16,7 @@ angular
       url: "/wiki/:name",
       templateUrl: "/html/game.html",
       controller: "MainController",
-      controllerAs: "Main"
+      controllerAs: "Game"
     });
 
     $urlRouterProvider.otherwise("/");
