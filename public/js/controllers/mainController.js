@@ -5,17 +5,18 @@ angular
 MainController.$inject = ["$http", "URL"];
 function MainController($http, URL){
   var self = this;
+  self.changePage = changePage;
 
-  console.log(URL);
-
-  $http({
-    method: "GET",
-    url: "https://en.wikipedia.org"
-  }).then(function(res){
-    console.log(res.data);
-    // self.page = res.data;
-    $("main").append(res.data);
-  }, function(res){
-    console.log(res);
-  });
+  function changePage(name){$http({
+      method: "GET",
+      url: "https://en.wikipedia.org/wiki/" + name
+    }).then(function(res){
+      console.log(res.data);
+      // self.page = res.data;
+      $("main").append(res.data);
+    }, function(res){
+      console.log(res);
+    });
+  }
+  changePage("Main_Page");
 }
