@@ -53,9 +53,8 @@ function MainController($http, URL, $stateParams, $scope){
   function startGame(){
     getPage();
     getPage();
-
   }
-  getPage();
-  getPage();
+
+  startGame();
   changePage($stateParams.name);
 }
