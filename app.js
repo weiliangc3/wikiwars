@@ -3,12 +3,14 @@ var morgan          = require("morgan");
 var methodOverride  = require("method-override");
 var bodyParser      = require("body-parser");
 var mongoose        = require("mongoose");
+var cors            = require("cors");
 
 var config          = require("./config/config");
 
 var app             = express();
 
 app.use(morgan('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
