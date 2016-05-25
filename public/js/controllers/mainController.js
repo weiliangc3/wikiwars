@@ -1,9 +1,9 @@
 angular
-.module("WikiWars")
-.controller("MainController", MainController);
+  .module("WikiWars")
+  .controller("MainController", MainController);
 
-MainController.$inject = ["$http", "URL", "$stateParams", "$scope", "$state"];
-function MainController($http, URL, $stateParams, $scope, $state){
+MainController.$inject = ["$http", "URL", "$stateParams", "$scope", "$state", "Game"];
+function MainController($http, URL, $stateParams, $scope, $state, Game){
   var self = this;
   self.changePage = changePage;
   self.startGame  = startGame;
@@ -12,10 +12,11 @@ function MainController($http, URL, $stateParams, $scope, $state){
   self.gameStatus = "Ready to Rumble";
 
   function changePage(name){
+    var Url;
     if (name){
-      var Url = URL + name;
+      Url = URL + name;
     } else {
-      var Url = URL + $stateParams.name;
+      Url = URL + $stateParams.name;
     }
 
     counter();
@@ -25,7 +26,9 @@ function MainController($http, URL, $stateParams, $scope, $state){
       url: Url
     }).then(function(res){
       if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
-        self.gameStatus = "You Won";
+        $scope.$parent.Main.gameStatus = "You Won";
+        alert("You win!");
+        $state.go('win', {url: "win"});
       }
       $("#game-pane").html(res.data);
     }, function(res){
@@ -36,7 +39,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
   function getPage(){
     $http({
       method: "GET",
-      url: URL + "Special:Random"
+      url: URL + "Special:RandomInCategory/Featured_articles"
     }).then(function(res){
       var regex = /(<h1\b([\s\S]+?)>([\s\S]+?)<\/h1>)/;
       var result = regex.exec(res.data);
@@ -82,6 +85,19 @@ function MainController($http, URL, $stateParams, $scope, $state){
       getPage();
     }
   }
+
+  // function addGame(){
+  //   Game.save({
+  //     startPage: "Electropop",
+  //     startPageLink: "Electropop",
+  //     endPage: "Electronic Music",
+  //     endPageLink: "Electronic_Music"
+  //   }, function(data){
+  //     console.log(data);
+  //   });
+  // }
+  // addGame();
+  // console.log(Game.query());
 
   changePage($stateParams.name);
 }

@@ -6,8 +6,11 @@ var mongoose        = require("mongoose");
 var cors            = require("cors");
 
 var config          = require("./config/config");
+var routes          = require("./config/routes");
 
 var app             = express();
+
+var Game            = require("./models/game");
 
 app.use(morgan('dev'));
 app.use(cors());
@@ -24,6 +27,8 @@ app.use(methodOverride(function(req, res){
     return method;
   }
 }));
+
+app.use(routes);
 
 app.get("/*",function (req,res){
   res.sendFile(__dirname + '/public/index.html');
