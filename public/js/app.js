@@ -17,6 +17,10 @@ angular
       templateUrl: "/html/game.html",
       controller: "MainController",
       controllerAs: "Game"
+    })
+    .state("win", {
+      url: "/win",
+      templateUrl: "/html/win.html"
     });
 
     $urlRouterProvider.otherwise("/");

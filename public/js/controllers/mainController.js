@@ -26,6 +26,8 @@ function MainController($http, URL, $stateParams, $scope, $state){
     }).then(function(res){
       if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
         $scope.$parent.Main.gameStatus = "You Won";
+        alert("You win!");
+        $state.go('win', {url: "win"});
       }
       $("#game-pane").html(res.data);
     }, function(res){
