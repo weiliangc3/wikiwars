@@ -8,6 +8,7 @@
 }
 /*Google font-family: 'Roboto Slab', 'Lora', 'Slabo 27px','Open Sans', 'Playfair Display SC'*/
 div.start-game-button{
+  position: relative;
   font-family: 'Playfair Display SC',"NonSolus", Helvetica, Arial, sans-serif;
   text-align: center;
   font-size: 30px;
@@ -45,7 +46,7 @@ div#game-status{
   border: 1px solid #7BAFD7
 }
 div#game-status ul{
-  list-style:none;
+  list-style: none;
 }
 
 div#game-pane{
@@ -53,6 +54,18 @@ div#game-pane{
   overflow:hidden;
   transform: translate(-90px, -64px);
   z-index: 1
+}
+div#top-wall{
+  height:80px
+}
+div#left-wall{
+  background: red;
+  float: left;
+  width:90px;
+  min-height: 200px
+}
+div#start-page{
+
 }
 
 
@@ -3552,7 +3565,6 @@ ol.references li:target, sup.reference:target {
         margin-left: 10em;
         padding: 1em;
         border: 1px solid #a7d7f9;
-        border-right-width: 0;
         margin-top: -1px;
         background-color: #ffffff;
         color: #252525;

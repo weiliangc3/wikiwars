@@ -30,7 +30,8 @@
           Current Game Status: {{ Main.gameStatus }}
         </li>
       </ul>
-      <div class="start-game-button" data-ng-click="Main.startGame()">Restart Game</div>
+      <div ng-if="Main.gameStatus !== 'Ready to Rumble'" class="start-game-button" data-ng-click="Main.startGame()">Restart Game</div>
+      <div ng-if="Main.gameStatus === 'Ready to Rumble'" class="start-game-button" data-ng-click="Main.startGame()">Start Game</div>
     </div>
     <div class="main-player-window">
       <h1>
