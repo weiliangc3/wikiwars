@@ -14,7 +14,10 @@
 </head>
 <body>
   <main ng-controller="MainController as Main">
-    <h1>Wiki Wars. Start page:{{Main.startPage}}, End Page:{{Main.endPage}}</h1>
+    <h1>
+      <a href="https://en.wikipedia.org/wiki/{{Main.startPageLink}}" target="_blank">{{Main.startPage}}</a>,
+      <a href="https://en.wikipedia.org/wiki/{{Main.endPageLink}}" target="_blank">{{Main.endPage}}</a>
+    </h1>
     <div id="game-status">
       {{ Main.gameStatus }}
     </div>

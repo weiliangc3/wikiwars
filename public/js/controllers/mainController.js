@@ -20,7 +20,6 @@ function MainController($http, URL, $stateParams, $scope, $state){
       method: "GET",
       url: Url
     }).then(function(res){
-      console.log($scope.$parent.Main.endPageLink, $stateParams.name);
       if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
         self.gameStatus = "You Won";
       }
@@ -39,7 +38,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
 
       var stubfinder = /You can help Wikipedia/;
       var ifinder = /<i>/;
-      var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?]/;
+      var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?\À-ÿ]/;
       if (stubfinder.exec(res.data) || ifinder.exec(result) || badcharfinder.exec(result)) {
         getPage();
       } else {
@@ -67,7 +66,6 @@ function MainController($http, URL, $stateParams, $scope, $state){
       getPage();
       getPage();
     } else {
-      console.log("start stopped")
     }
   }
 
