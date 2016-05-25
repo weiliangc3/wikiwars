@@ -1,9 +1,9 @@
 angular
-.module("WikiWars")
-.controller("MainController", MainController);
+  .module("WikiWars")
+  .controller("MainController", MainController);
 
-MainController.$inject = ["$http", "URL", "$stateParams", "$scope", "$state"];
-function MainController($http, URL, $stateParams, $scope, $state){
+MainController.$inject = ["$http", "URL", "$stateParams", "$scope", "$state", "Game"];
+function MainController($http, URL, $stateParams, $scope, $state, Game){
   var self = this;
   self.changePage = changePage;
   self.startGame  = startGame;
@@ -12,10 +12,11 @@ function MainController($http, URL, $stateParams, $scope, $state){
   self.gameStatus = "Ready to Rumble";
 
   function changePage(name){
+    var Url;
     if (name){
-      var Url = URL + name;
+      Url = URL + name;
     } else {
-      var Url = URL + $stateParams.name;
+      Url = URL + $stateParams.name;
     }
 
     counter();
@@ -83,6 +84,19 @@ function MainController($http, URL, $stateParams, $scope, $state){
       getPage();
     }
   }
+
+  // function addGame(){
+  //   Game.save({
+  //     startPage: "Electropop",
+  //     startPageLink: "Electropop",
+  //     endPage: "Electronic Music",
+  //     endPageLink: "Electronic_Music"
+  //   }, function(data){
+  //     console.log(data);
+  //   });
+  // }
+  // addGame();
+  // console.log(Game.query());
 
   changePage($stateParams.name);
 }
