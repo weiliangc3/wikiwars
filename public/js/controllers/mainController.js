@@ -8,6 +8,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
   self.changePage = changePage;
   self.startGame  = startGame;
   self.count      = 0;
+  self.play       = false;
 
   function changePage(name){
     if (name){
@@ -28,6 +29,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
       }
       $("#game-pane").html(res.data);
     }, function(res){
+      console.log(res);
     });
   }
 
@@ -62,7 +64,11 @@ function MainController($http, URL, $stateParams, $scope, $state){
 
   function counter(){
     if ($scope.$parent.Main) {
-      $scope.$parent.Main.count++;
+      if ($scope.$parent.Main.play === false) {
+        $scope.$parent.Main.play = true;
+      } else {
+        $scope.$parent.Main.count++;
+      }
     }
   }
 
