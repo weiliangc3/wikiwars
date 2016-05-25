@@ -2,8 +2,8 @@ angular
 .module("WikiWars")
 .controller("MainController", MainController);
 
-MainController.$inject = ["$http", "URL", "$stateParams", "$scope"];
-function MainController($http, URL, $stateParams, $scope){
+MainController.$inject = ["$http", "URL", "$stateParams", "$scope",'$state'];
+function MainController($http, URL, $stateParams, $scope, $state){
   var self = this;
   self.changePage = changePage;
   self.startGame  = startGame;
@@ -40,16 +40,17 @@ function MainController($http, URL, $stateParams, $scope){
       var ifinder = /<i>/;
       var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?]/;
       if (stubfinder.exec(res.data) || ifinder.exec(result) || badcharfinder.exec(result)) {
-        alert("dontwant");
         getPage();
       } else {
         if (!self.startPage) {
           self.startPage     = result[0].slice(53, result[0].length-5);
           self.startPageLink = self.startPage.replace(/ /g,"_");
+
+          $state.go('index', {name: self.startPageLink});
         } else {
           self.endPage       = result[0].slice(53, result[0].length-5);
-          // self.endPageLink   = self.endPage.replace(/ /g,"_");
-          self.endPageLink   = "Sugababes";
+          self.endPageLink   = self.endPage.replace(/ /g,"_");
+          // self.endPageLink   = "Sugababes";
         }
       }
     }, function(res){
@@ -67,6 +68,5 @@ function MainController($http, URL, $stateParams, $scope){
     }
   }
 
-  startGame();
   changePage($stateParams.name);
 }
