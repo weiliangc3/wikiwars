@@ -28,7 +28,7 @@ app.use(methodOverride(function(req, res){
   }
 }));
 
-app.use(routes);
+app.use("/api",routes);
 
 app.get("/*",function (req,res){
   res.sendFile(__dirname + '/public/index.html');
