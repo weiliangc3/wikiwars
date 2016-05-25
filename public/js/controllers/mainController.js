@@ -22,8 +22,8 @@ function MainController($http, URL, $stateParams, $scope, $state){
       method: "GET",
       url: Url
     }).then(function(res){
-      // console.log($scope.$parent)
-      if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
+      console.log($scope.$parent.Main.endPageLink, $stateParams.name);
+      if(($scope.$parent.Main.endPageLink) && ($stateParams.name === $scope.$parent.Main.endPageLink)){
         alert("YOU WON");
       }
       $("#game-pane").html(res.data);
@@ -43,16 +43,16 @@ function MainController($http, URL, $stateParams, $scope, $state){
       var ifinder = /<i>/;
       var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?]/;
       if (stubfinder.exec(res.data) || ifinder.exec(result) || badcharfinder.exec(result)) {
-        // alert("dontwant");
         getPage();
       } else {
         if (!self.startPage) {
           self.startPage     = result[0].slice(53, result[0].length-5);
           self.startPageLink = self.startPage.replace(/ /g,"_");
+
+          $state.go('index', {name: self.startPageLink});
         } else {
           self.endPage       = result[0].slice(53, result[0].length-5);
           self.endPageLink   = self.endPage.replace(/ /g,"_");
-
         }
       }
     }, function(res){
@@ -77,6 +77,5 @@ function MainController($http, URL, $stateParams, $scope, $state){
     }
   }
 
-  startGame();
   changePage($stateParams.name);
 }
