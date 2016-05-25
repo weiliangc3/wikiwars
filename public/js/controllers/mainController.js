@@ -12,10 +12,11 @@ function MainController($http, URL, $stateParams, $scope, $state){
   self.gameStatus = "Ready to Rumble";
 
   function changePage(name){
+    var Url;
     if (name){
-      var Url = URL + name;
+      Url = URL + name;
     } else {
-      var Url = URL + $stateParams.name;
+      Url = URL + $stateParams.name;
     }
 
     counter();
