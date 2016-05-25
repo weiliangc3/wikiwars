@@ -14,7 +14,10 @@
 </head>
 <body>
   <main ng-controller="MainController as Main">
-    <h1>{{Main.startPage}}, {{Main.endPage}}</h1>
+    <h1>Wiki Wars. Start page:{{Main.startPage}}, End Page:{{Main.endPage}}</h1>
+    <div id="game-status">
+      {{ Main.gameStatus }}
+    </div>
     <div id="game-pane" ui-view></div>
   </main>
 </body>

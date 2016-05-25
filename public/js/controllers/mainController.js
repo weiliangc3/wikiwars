@@ -7,6 +7,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
   var self = this;
   self.changePage = changePage;
   self.startGame  = startGame;
+  self.gameStatus = "Ready to Rumble";
 
   function changePage(name){
     if (name){
@@ -19,9 +20,9 @@ function MainController($http, URL, $stateParams, $scope, $state){
       method: "GET",
       url: Url
     }).then(function(res){
-      console.log($scope.$parent)
+      console.log($scope.$parent.Main.endPageLink, $stateParams.name);
       if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
-        alert("YOU WON");
+        self.gameStatus = "You Won";
       }
       $("#game-pane").html(res.data);
     }, function(res){
@@ -61,6 +62,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
   function startGame(){
     self.startPage = null;
     self.endPage = null;
+    self.gameStatus = "Race begun.";
     if (!$scope.$parent.Main){
       getPage();
       getPage();
