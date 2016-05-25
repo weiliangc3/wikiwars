@@ -83,18 +83,18 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
     }
   }
 
-  function addGame(){
-    Game.save({
-      startPage: "Electropop",
-      startPageLink: "Electropop",
-      endPage: "Electronic Music",
-      endPageLink: "Electronic_Music"
-    }, function(data){
-      console.log(data);
-    });
-  }
-  addGame();
-  console.log(Game.query());
-  
-  // changePage($stateParams.name);
+  // function addGame(){
+  //   Game.save({
+  //     startPage: "Electropop",
+  //     startPageLink: "Electropop",
+  //     endPage: "Electronic Music",
+  //     endPageLink: "Electronic_Music"
+  //   }, function(data){
+  //     console.log(data);
+  //   });
+  // }
+  // addGame();
+  // console.log(Game.query());
+
+  changePage($stateParams.name);
 }
