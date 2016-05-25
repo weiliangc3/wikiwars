@@ -19,7 +19,7 @@ function MainController($http, URL, $stateParams, $scope){
       method: "GET",
       url: Url
     }).then(function(res){
-      console.log($scope.$parent)
+      console.log($scope.$parent);
       if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
         alert("YOU WON");
       }
@@ -64,7 +64,6 @@ function MainController($http, URL, $stateParams, $scope){
       getPage();
       getPage();
     } else {
-      console.log("start stopped")
     }
   }
 
