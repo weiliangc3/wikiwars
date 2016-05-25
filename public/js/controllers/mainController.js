@@ -37,7 +37,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
 
       var stubfinder = /You can help Wikipedia/;
       var ifinder = /<i>/;
-      var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?]/;
+      var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?\À-ÿ]/;
       if (stubfinder.exec(res.data) || ifinder.exec(result) || badcharfinder.exec(result)) {
         getPage();
       } else {
