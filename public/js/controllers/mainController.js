@@ -19,7 +19,6 @@ function MainController($http, URL, $stateParams, $scope, $state){
       method: "GET",
       url: Url
     }).then(function(res){
-      console.log($scope.$parent);
       if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
         alert("YOU WON");
       }
