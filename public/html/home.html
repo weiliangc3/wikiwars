@@ -1,16 +1,26 @@
-<div id="top-wall"></div>
-<div id="left-wall"></div>
-
 <div id="start-page">
-<h2>No one man should have all that PWR</h2>
-<p>
-  Improvise your way to victory in this thrilling take on the Wikipedia Game.
-</p>
-<p>
-  Brought to you by the PWR team, we present to you the ultimate in knowledge games. It's Trivial Pursuit meets F1. It's Whose Line Is It Anyway meets Nascar. It's Countdown meets the Grand National. Jeopardy! meets Le Mans. Pub Quiz meets Top Gear.
-</p>
-<p>
-  Are you ready prove yourself and join the pantheon of WikiLords?
-</p>
-<div class="start-game-button" data-ng-click="Main.startGame()">Start Game</div>
+  <h2>No one man should have all that PWR</h2>
+  <p>
+    Improvise your way to victory in this thrilling take on the Wikipedia Game.
+  </p>
+  <p>
+    Brought to you by the PWR team, we present to you the ultimate in knowledge games. It's Trivial Pursuit meets F1. It's Whose Line Is It Anyway meets Nascar. It's Countdown meets the Grand National. Jeopardy! meets Le Mans. Pub Quiz meets Top Gear.
+  </p>
+  <p>
+    Are you ready prove yourself and join the pantheon of WikiLords?
+  </p>
+  <div class="start-game-button" data-ng-click="Main.startGame()">Start Game</div>
+
+  <div class="game-list">
+    <h3>Pantheon of Winners: Last 10 WikiLords and their journeys</h3>
+    <div ng-repeat="game in Main.games | reverse" class="game-listing">
+      <ul>
+        <li>The hero <strong>{{game.player ? game.player : 'Anonymous'}}</strong></li>
+        <li>Started at {{game.startPage ? game.startPage : 'nowhere'}}</li>
+        <li>Ended at {{game.endPage ? game.endPage : 'nowhere'}}</li>
+        <li>And made {{game.score ? game.score : 0 }} moves</li>
+      </ul>
+      <div ng-click="Main.loadGame(game)" class="load-game">Play this game</div>
+    </div>
+  </div>
 </div>

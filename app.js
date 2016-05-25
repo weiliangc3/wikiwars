@@ -10,6 +10,8 @@ var routes          = require("./config/routes");
 
 var app             = express();
 
+mongoose.connect(config.database);
+
 var Game            = require("./models/game");
 
 app.use(morgan('dev'));

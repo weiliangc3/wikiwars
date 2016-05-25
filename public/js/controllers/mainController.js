@@ -1,6 +1,6 @@
 angular
-  .module("WikiWars")
-  .controller("MainController", MainController);
+.module("WikiWars")
+.controller("MainController", MainController);
 
 MainController.$inject = ["$http", "URL", "$stateParams", "$scope", "$state", "Game"];
 function MainController($http, URL, $stateParams, $scope, $state, Game){
@@ -10,6 +10,25 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
   self.count      = 0;
   self.play       = false;
   self.gameStatus = "Ready to Rumble";
+  self.loadGame   = loadGame;
+  self.saved      = false;
+  getGames();
+
+  function saveGame(){
+
+    if ($scope.$parent.Main){
+      Game.save({
+        startPage:      $scope.$parent.Main.startPage,
+        startPageLink:  $scope.$parent.Main.startPageLink,
+        endPage:        $scope.$parent.Main.endPage,
+        endPageLink:    $scope.$parent.Main.endPageLink,
+        count:          $scope.$parent.Main.count,
+        player:         $scope.$parent.Main.player
+      },function(res){
+      });
+
+    }
+  }
 
   function changePage(name){
     var Url;
@@ -25,10 +44,15 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
       method: "GET",
       url: Url
     }).then(function(res){
-      if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
-        $scope.$parent.Main.gameStatus = "You Won";
-        alert("You win!");
-        $state.go('win', {url: "win"});
+      if($scope.$parent.Main){
+        if((!!$scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
+          $scope.$parent.Main.gameStatus = "You Won";
+          alert("You win!");
+          $state.go('win', {url: "win"});
+
+          saveGame();
+
+        }
       }
       $("#game-pane").html(res.data);
     }, function(res){
@@ -53,7 +77,6 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
         if (!self.startPage) {
           self.startPage     = result[0].slice(53, result[0].length-5);
           self.startPageLink = self.startPage.replace(/ /g,"_");
-
           $state.go('index', {name: self.startPageLink});
         } else {
           self.endPage       = result[0].slice(53, result[0].length-5);
@@ -81,6 +104,7 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
     self.startPage = null;
     self.endPage = null;
     self.count = 0;
+    self.saved = false;
     self.gameStatus = "Race begun.";
     if (!$scope.$parent.Main){
       getPage();
@@ -88,18 +112,28 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
     }
   }
 
-  // function addGame(){
-  //   Game.save({
-  //     startPage: "Electropop",
-  //     startPageLink: "Electropop",
-  //     endPage: "Electronic Music",
-  //     endPageLink: "Electronic_Music"
-  //   }, function(data){
-  //     console.log(data);
-  //   });
-  // }
-  // addGame();
-  // console.log(Game.query());
+  function loadGame(game){
+    self.count = 0;
+    self.play = false;
+    self.startPage = game.startPage;
+    self.startPageLink = game.startPageLink;
+    self.endPage = game.endPage;
+    self.endPageLink = game.endPageLink;
+    self.gameStatus = "Race begun.";
+    $state.go('index', {name: self.startPageLink});
+  }
 
-  changePage($stateParams.name);
+  function getGames(){
+    console.log("games gotten?");
+    var games = Game.query();
+    games.splice(games.length-10, games.length);
+    self.games = games;
+    console.log(games);
+  }
+
+
+  if ($stateParams.name){
+    changePage($stateParams.name);
+  }
+
 }

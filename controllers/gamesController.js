@@ -8,7 +8,7 @@ function gamesIndex(req, res){
 }
 
 function gamesCreate(req, res){
-  var game = new Game(req.body.game);
+  var game = new Game(req.body);
   game.save(function(err, game) {
     if (err) return res.status(500).send(err);
     res.status(201).send(game);
@@ -17,7 +17,7 @@ function gamesCreate(req, res){
 
 function gamesShow(req, res){
   var id = req.params.id;
-  Game.findById({ _id: id }).populate("projects").exec(function(err, game) {
+  Game.findById({ _id: id }).exec(function(err, game) {
     if (err) return res.status(500).send(err);
     if (!game) return res.status(404).send(err);
     res.status(200).send(game);
