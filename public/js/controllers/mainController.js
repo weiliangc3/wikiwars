@@ -40,7 +40,6 @@ function MainController($http, URL, $stateParams, $scope){
       var ifinder = /<i>/;
       var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?]/;
       if (stubfinder.exec(res.data) || ifinder.exec(result) || badcharfinder.exec(result)) {
-        alert("dontwant");
         getPage();
       } else {
         if (!self.startPage) {
@@ -48,8 +47,8 @@ function MainController($http, URL, $stateParams, $scope){
           self.startPageLink = self.startPage.replace(/ /g,"_");
         } else {
           self.endPage       = result[0].slice(53, result[0].length-5);
-          // self.endPageLink   = self.endPage.replace(/ /g,"_");
-          self.endPageLink   = "Sugababes";
+          self.endPageLink   = self.endPage.replace(/ /g,"_");
+          // self.endPageLink   = "Sugababes";
         }
       }
     }, function(res){
