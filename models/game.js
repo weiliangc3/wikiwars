@@ -6,7 +6,8 @@ var gameSchema = mongoose.Schema({
   endPage: String,
   endPageLink: String,
   player: String,
-  count: String
+  count: String,
+  timeTaken: String
 }, {
   timestamps: true
 });

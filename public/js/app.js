@@ -3,7 +3,7 @@ angular
 .constant("URL", "https://en.wikipedia.org/wiki/")
 .config(Router).filter('reverse', function() {
   return function(items) {
-    return items.slice().reverse();
+    return items.slice().reverse().slice(0, 10);
   };
 });
 

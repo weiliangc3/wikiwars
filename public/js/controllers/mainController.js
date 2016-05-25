@@ -12,21 +12,22 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
   self.gameStatus = "Ready to Rumble";
   self.loadGame   = loadGame;
   self.saved      = false;
+  self.saveGame   = saveGame;
   getGames();
 
   function saveGame(){
-
-    if ($scope.$parent.Main){
+    self.saved = true;
+    if (self.startPage){
       Game.save({
-        startPage:      $scope.$parent.Main.startPage,
-        startPageLink:  $scope.$parent.Main.startPageLink,
-        endPage:        $scope.$parent.Main.endPage,
-        endPageLink:    $scope.$parent.Main.endPageLink,
-        count:          $scope.$parent.Main.count,
-        player:         $scope.$parent.Main.player
+        startPage:      self.startPage,
+        startPageLink:  self.startPageLink,
+        endPage:        self.endPage,
+        endPageLink:    self.endPageLink,
+        count:          self.count,
+        player:         self.player,
+        timeTaken:      self.timeTaken
       },function(res){
       });
-
     }
   }
 
@@ -46,12 +47,14 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
     }).then(function(res){
       if($scope.$parent.Main){
         if((!!$scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
+          var endTime = new Date();
+          var milli = endTime - $scope.$parent.Main.startTime;
+          var timer = new Date(milli);
+          var timeTaken = timer.getHours() + " hours, " + timer.getMinutes() + " minutes and " + timer.getSeconds() + " seconds.";
+          $scope.$parent.Main.timeTaken = timeTaken;
+          console.log(timeTaken);
           $scope.$parent.Main.gameStatus = "You Won";
-          alert("You win!");
           $state.go('win', {url: "win"});
-
-          saveGame();
-
         }
       }
       $("#game-pane").html(res.data);
@@ -105,6 +108,7 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
     self.endPage = null;
     self.count = 0;
     self.saved = false;
+    self.startTime = new Date();
     self.gameStatus = "Race begun.";
     if (!$scope.$parent.Main){
       getPage();
@@ -115,6 +119,7 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
   function loadGame(game){
     self.count = 0;
     self.play = false;
+    self.startTime = new Date();
     self.startPage = game.startPage;
     self.startPageLink = game.startPageLink;
     self.endPage = game.endPage;
@@ -124,16 +129,22 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
   }
 
   function getGames(){
-    console.log("games gotten?");
     var games = Game.query();
-    games.splice(games.length-10, games.length);
-    self.games = games;
+    games.slice(0, 10);
     console.log(games);
+    self.games = games;
   }
 
 
   if ($stateParams.name){
     changePage($stateParams.name);
+    if ($scope.$parent.Main.gameStatus === "Ready to Rumble") {
+      $state.go('home');
+    }
   }
+
+  if ($state === 'win'){
+    console.log("TES")
+  };
 
 }

@@ -1,5 +1,4 @@
 <div id="start-page">
-    >>>>>>> 7c409022f7e6f3aabe3e02452e82eec114974f19
     <h1>Congrats you the best!</h1>
     <p>
       You won in {{Main.count}} moves.
@@ -10,12 +9,15 @@
     <p>
       Welcome to the realm of the WikiLords!
     </p>
-    <p>
+    <div ng-hide="Main.saved">
       Enter your name and have your name recorded in the Pantheon Of Winners:
-      <form action="index.html" method="post" ng-submit="Main.saveGame()">
-        <input type="text" name="name" value="Anonymous">
-        <button type="submit" name="button"></button>
+      <form name="new-winner-form" ng-submit="Main.saveGame()">
+        <input type="text" ng-model='Main.player'>
+        <button type="submit" name="button">Engrave your name into the Pantheon of Winners</button>
       </form>
+    </div>
+    <p ng-if="Main.saved">
+      Game saved, WikiLord, your name has been entered in the Pantheon of Winners for mere WikiUsers to envy.
     </p>
     <div class="start-game-button" data-ng-click="Main.startGame()">Restart Game</div>
   </div>

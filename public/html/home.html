@@ -18,7 +18,8 @@
         <li>The hero <strong>{{game.player ? game.player : 'Anonymous'}}</strong></li>
         <li>Started at {{game.startPage ? game.startPage : 'nowhere'}}</li>
         <li>Ended at {{game.endPage ? game.endPage : 'nowhere'}}</li>
-        <li>And made {{game.score ? game.score : 0 }} moves</li>
+        <li>And made {{game.count ? game.count : 0 }} moves</li>
+        <li>Over {{game.timeTaken ? game.timeTaken : 'an unknown time'}}.</li>
       </ul>
       <div ng-click="Main.loadGame(game)" class="load-game">Play this game</div>
     </div>
