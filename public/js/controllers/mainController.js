@@ -80,6 +80,7 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
     self.play = false;
     self.startPage = null;
     self.endPage = null;
+    self.count = 0;
     self.gameStatus = "Race begun.";
     if (!$scope.$parent.Main){
       getPage();
