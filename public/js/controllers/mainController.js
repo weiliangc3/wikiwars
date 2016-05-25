@@ -76,6 +76,8 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
   }
 
   function startGame(){
+    self.count = 0;
+    self.play = false;
     self.startPage = null;
     self.endPage = null;
     self.gameStatus = "Race begun.";
