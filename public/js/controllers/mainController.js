@@ -25,7 +25,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
       url: Url
     }).then(function(res){
       if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
-        self.gameStatus = "You Won";
+        $scope.$parent.Main.gameStatus = "You Won";
       }
       $("#game-pane").html(res.data);
     }, function(res){
@@ -36,7 +36,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
   function getPage(){
     $http({
       method: "GET",
-      url: URL + "Special:Random"
+      url: URL + "Special:RandomInCategory/Featured_articles"
     }).then(function(res){
       var regex = /(<h1\b([\s\S]+?)>([\s\S]+?)<\/h1>)/;
       var result = regex.exec(res.data);
