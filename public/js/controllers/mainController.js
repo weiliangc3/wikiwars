@@ -9,6 +9,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
   self.startGame  = startGame;
   self.count      = 0;
   self.play       = false;
+  self.gameStatus = "Ready to Rumble";
 
   function changePage(name){
     if (name){
@@ -23,9 +24,8 @@ function MainController($http, URL, $stateParams, $scope, $state){
       method: "GET",
       url: Url
     }).then(function(res){
-      console.log($scope.$parent.Main.endPageLink, $stateParams.name);
-      if(($scope.$parent.Main.endPageLink) && ($stateParams.name === $scope.$parent.Main.endPageLink)){
-        alert("YOU WON");
+      if(($scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
+        self.gameStatus = "You Won";
       }
       $("#game-pane").html(res.data);
     }, function(res){
@@ -43,7 +43,7 @@ function MainController($http, URL, $stateParams, $scope, $state){
 
       var stubfinder = /You can help Wikipedia/;
       var ifinder = /<i>/;
-      var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?]/;
+      var badcharfinder = /[\|\$\%\^\&\*\(\{\}\'\[\#\;@\?\À-ÿ]/;
       if (stubfinder.exec(res.data) || ifinder.exec(result) || badcharfinder.exec(result)) {
         getPage();
       } else {
@@ -75,11 +75,10 @@ function MainController($http, URL, $stateParams, $scope, $state){
   function startGame(){
     self.startPage = null;
     self.endPage = null;
+    self.gameStatus = "Race begun.";
     if (!$scope.$parent.Main){
       getPage();
       getPage();
-    } else {
-      console.log("start stopped");
     }
   }
 
