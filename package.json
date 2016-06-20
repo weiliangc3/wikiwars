@@ -1,10 +1,14 @@
 {
   "name": "wikiwars",
   "version": "1.0.0",
+  "engines":{
+    "node": "6.0.0"
+  },
   "description": "23:00:01 Hackathon.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "6.0.0"
   },
   "repository": {
     "type": "git",
