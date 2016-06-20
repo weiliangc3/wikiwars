@@ -4,7 +4,7 @@ angular
 
 Game.$inject = ["$resource"];
 function Game($resource){
-  return $resource("http://localhost:3000/api/games/:id",
+  return $resource("https://pwrwikiwars.herokuapp.com/api/games/:id",
   { id: "@_id" },
   { update: { method: "PUT" }
   });
