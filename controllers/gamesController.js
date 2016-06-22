@@ -1,4 +1,5 @@
 var Game = require("../models/game");
+var rp   = require("request-promise");
 
 function gamesIndex(req, res){
   Game.find({}, function(err, games) {
@@ -42,10 +43,22 @@ function gamesDelete(req, res){
   });
 }
 
+function gamesGetPage(req, res){
+  var url = req.body.url;
+  rp(url)
+  .then(function (htmlString) {
+    res.status(200).send(htmlString);
+  })
+  .catch(function (err) {
+    console.log("#fail");
+  });
+}
+
 module.exports = {
   gamesIndex:  gamesIndex,
   gamesCreate: gamesCreate,
   gamesShow:   gamesShow,
   gamesUpdate: gamesUpdate,
-  gamesDelete: gamesDelete
+  gamesDelete: gamesDelete,
+  gamesGetPage: gamesGetPage
 };

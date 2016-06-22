@@ -15,4 +15,7 @@ router.route('/games/:id')
   .put(gamesController.gamesUpdate)
   .delete(gamesController.gamesDelete);
 
+router.route('/getpage')
+  .post(gamesController.gamesGetPage);
+
 module.exports = router;

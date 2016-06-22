@@ -4,6 +4,7 @@ var methodOverride  = require("method-override");
 var bodyParser      = require("body-parser");
 var mongoose        = require("mongoose");
 var cors            = require("cors");
+var rp              = require("request-promise");
 
 var config          = require("./config/config");
 var routes          = require("./config/routes");

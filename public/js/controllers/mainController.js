@@ -42,9 +42,11 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
     counter();
 
     $http({
-      method: "GET",
-      url: Url
+      method: "POST",
+      url: "/api/getpage",
+      data: { url: Url }
     }).then(function(res){
+      console.log(res);
       if($scope.$parent.Main){
         if((!!$scope.$parent.Main.endPageLink)&&($stateParams.name === $scope.$parent.Main.endPageLink)){
           var endTime = new Date();
@@ -64,12 +66,16 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
   }
 
   function getPage(){
+    var Url = URL + "Special:RandomInCategory/Featured_articles";
     $http({
-      method: "GET",
-      url: URL + "Special:RandomInCategory/Featured_articles"
+      method: "POST",
+      url: "/api/getpage",
+      data: { url: Url }
     }).then(function(res){
+      console.log(res);
       var regex = /(<h1\b([\s\S]+?)>([\s\S]+?)<\/h1>)/;
       var result = regex.exec(res.data);
+      console.log("result:", result);
 
       var stubfinder = /You can help Wikipedia/;
       var ifinder = /<i>/;
@@ -144,7 +150,7 @@ function MainController($http, URL, $stateParams, $scope, $state, Game){
   }
 
   if ($state === 'win'){
-    console.log("TES")
-  };
+    console.log("TES");
+  }
 
 }
